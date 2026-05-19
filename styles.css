@@ -1117,3 +1117,65 @@ body {
   overflow: hidden;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
+
+/* ===== GLOBAL RAINBOW TEXT — ALL WRITING ===== */
+@keyframes global-rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+body p,
+body span,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+body li,
+body label,
+body a,
+body strong,
+body em,
+body blockquote,
+body td,
+body th {
+  background: linear-gradient(
+    90deg,
+    #ff3366, #ff7700, #ffee00, #33dd66,
+    #33aaff, #cc44ff, #ff88cc, #ff3366,
+    #ff7700, #ffee00, #33dd66, #33aaff
+  ) !important;
+  background-size: 300% 100% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: global-rainbow 6s linear infinite !important;
+}
+
+body h2 { animation-delay: -1s !important; }
+body h3 { animation-delay: -2s !important; }
+body p  { animation-delay: -0.5s !important; }
+body span { animation-delay: -1.5s !important; }
+body li { animation-delay: -2.5s !important; }
+body a  { animation-delay: -3s !important; }
+
+/* Keep buttons readable */
+body button {
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+}
+
+/* Keep input/textarea fields readable */
+body input,
+body textarea {
+  -webkit-text-fill-color: white !important;
+  background: unset !important;
+  background-clip: unset !important;
+}
+
+body input::placeholder,
+body textarea::placeholder {
+  -webkit-text-fill-color: rgba(200, 180, 255, 0.6) !important;
+}

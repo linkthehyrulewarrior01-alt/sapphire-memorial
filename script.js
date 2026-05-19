@@ -210,16 +210,74 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// MUSIC PLAYER TOGGLE
+// YOUTUBE MUSIC PLAYER
 // ============================================
-function toggleMusic() {
-  const player = document.getElementById('music-player');
-  if (player.style.display === 'none' || player.style.display === '') {
-    player.style.display = 'block';
+let ytPlayer = null;
+let ytReady = false;
+let ytMuted = false;
+let ytPlaying = false;
+
+window.onYouTubeIframeAPIReady = function() {
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1',
+    width: '1',
+    videoId: 'Z1IA_75pOgA',
+    playerVars: {
+      autoplay: 1,
+      loop: 1,
+      playlist: 'Z1IA_75pOgA',
+      controls: 0,
+      mute: 0,
+      playsinline: 1
+    },
+    events: {
+      onReady: function(e) {
+        ytReady = true;
+        e.target.setVolume(60);
+        e.target.playVideo();
+        ytPlaying = true;
+        updateMusicUI();
+      },
+      onStateChange: function(e) {
+        ytPlaying = (e.data === YT.PlayerState.PLAYING);
+        updateMusicUI();
+      }
+    }
+  });
+};
+
+function updateMusicUI() {
+  const playBtn = document.getElementById('music-play-btn');
+  const muteBtn = document.getElementById('music-mute-btn');
+  const status = document.getElementById('music-status');
+  if (playBtn) playBtn.textContent = ytPlaying ? '\u23f8\ufe0f' : '\u25b6\ufe0f';
+  if (muteBtn) muteBtn.textContent = ytMuted ? '\ud83d\udd07' : '\ud83d\udd0a';
+  if (status) status.textContent = ytPlaying ? 'PLAYING' : 'PAUSED';
+}
+
+function toggleMusicPlay() {
+  if (!ytReady || !ytPlayer) return;
+  if (ytPlaying) {
+    ytPlayer.pauseVideo();
   } else {
-    player.style.display = 'none';
+    ytPlayer.playVideo();
   }
 }
+
+function toggleMusicMute() {
+  if (!ytReady || !ytPlayer) return;
+  if (ytMuted) {
+    ytPlayer.unMute();
+    ytMuted = false;
+  } else {
+    ytPlayer.mute();
+    ytMuted = true;
+  }
+  updateMusicUI();
+}
+
+// Legacy toggle for any old references
+function toggleMusic() { toggleMusicPlay(); }
 
 // ============================================
 // PRINT FUNCTIONS

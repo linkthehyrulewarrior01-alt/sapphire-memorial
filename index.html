@@ -406,20 +406,17 @@
     <img src="" alt="Full size" class="lightbox-img" id="lightbox-img" />
   </div>
 
-  <!-- Floating Music Player -->
-  <div id="music-player" class="music-player-popup" style="display:none;">
-    <iframe
-      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-      frameborder="0"
-      height="175"
-      style="width:100%; overflow:hidden; border-radius:12px;"
-      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-      src="https://embed.music.apple.com/us/album/rubberband/1558612320?i=1558612324&theme=dark"
-    ></iframe>
+  <!-- YouTube Background Music Player -->
+  <div id="yt-player-container" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;">
+    <div id="yt-player"></div>
   </div>
-  <button id="music-toggle" class="music-toggle-btn" onclick="toggleMusic()">
-    <span class="music-icon">🎵</span>
-  </button>
+  <!-- Music Control Button -->
+  <div style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:6px;">
+    <button id="music-play-btn" onclick="toggleMusicPlay()" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;color:white;font-size:22px;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.5);transition:transform 0.2s;" title="Play/Pause Music">▶️</button>
+    <button id="music-mute-btn" onclick="toggleMusicMute()" style="width:36px;height:36px;border-radius:50%;background:rgba(124,58,237,0.4);border:1px solid rgba(168,85,247,0.5);color:white;font-size:14px;cursor:pointer;" title="Mute/Unmute">🔊</button>
+    <span id="music-status" style="font-size:9px;color:rgba(200,180,255,0.7);letter-spacing:1px;">MUSIC</span>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <script src="script.js"></script>
 </body>
