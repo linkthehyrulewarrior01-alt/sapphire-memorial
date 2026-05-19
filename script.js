@@ -1,7 +1,7 @@
-// ===== PARTICLES =====
+// ===== SPARKLY GLITTER PARTICLES =====
 function createParticles() {
     const container = document.getElementById('particles');
-    const particleCount = 50;
+    const particleCount = 80;
 
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -9,10 +9,72 @@ function createParticles() {
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
         particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (10 + Math.random() * 20) + 's';
-        particle.style.width = (2 + Math.random() * 4) + 'px';
-        particle.style.height = particle.style.width;
+        particle.style.animationDuration = (8 + Math.random() * 15) + 's';
+        
+        // Vary sizes for sparkle effect
+        const size = 1 + Math.random() * 5;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random colors for glitter effect
+        const colors = [
+            'rgba(168, 85, 247, 0.8)',   // purple
+            'rgba(251, 191, 36, 0.8)',    // gold
+            'rgba(255, 255, 255, 0.9)',   // white
+            'rgba(196, 181, 253, 0.7)',   // light purple
+            'rgba(233, 213, 255, 0.6)',   // soft purple
+            'rgba(251, 191, 36, 0.6)',    // soft gold
+        ];
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
         container.appendChild(particle);
+    }
+}
+
+// ===== MOUSE SPARKLE TRAIL =====
+function createSparkleTrail() {
+    let throttle = false;
+    
+    document.addEventListener('mousemove', (e) => {
+        if (throttle) return;
+        throttle = true;
+        setTimeout(() => { throttle = false; }, 50);
+        
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-trail';
+        sparkle.style.left = e.pageX + 'px';
+        sparkle.style.top = e.pageY + 'px';
+        
+        const colors = ['#a855f7', '#fbbf24', '#ffffff', '#e9d5ff', '#c4b5fd'];
+        sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        sparkle.style.boxShadow = `0 0 6px ${sparkle.style.background}, 0 0 10px ${sparkle.style.background}`;
+        
+        document.body.appendChild(sparkle);
+        
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1000);
+    });
+}
+
+// ===== TWINKLING STARS =====
+function createTwinklingStars() {
+    const container = document.getElementById('particles');
+    const starCount = 40;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'twinkle-star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.animationDuration = (1 + Math.random() * 3) + 's';
+        
+        const size = 1 + Math.random() * 3;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        container.appendChild(star);
     }
 }
 
@@ -167,5 +229,7 @@ function loadGuestbookEntries() {
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
+    createTwinklingStars();
+    createSparkleTrail();
     loadGuestbookEntries();
 });
