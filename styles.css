@@ -167,27 +167,42 @@ body {
 }
 
 .nav-links {
-  display: none;
-  gap: 0.5rem;
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  max-width: calc(100vw - 130px);
 }
+.nav-links::-webkit-scrollbar { display: none; }
+
+.mobile-menu-btn { display: none !important; }
+.mobile-nav { display: none !important; }
 
 @media (min-width: 768px) {
-  .nav-links { display: flex; }
-  .mobile-menu-btn { display: none; }
+  .nav-links { max-width: none; gap: 0.5rem; }
   .main-nav { padding: 0.75rem 2rem; }
 }
 
 .nav-btn {
-  background: none;
-  border: none;
-  color: rgba(196, 181, 253, 0.7);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
+  background: linear-gradient(135deg, rgba(80,40,160,0.7), rgba(120,60,200,0.7));
+  border: 1px solid rgba(168,85,247,0.4);
+  border-radius: 9999px;
+  color: rgba(220, 200, 255, 0.9);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
   cursor: pointer;
-  padding: 0.35rem 0.75rem;
-  transition: all 0.3s;
+  padding: 0.32rem 0.7rem;
+  transition: all 0.25s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.nav-btn:hover { color: #fbbf24; }
+.nav-btn:hover {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(168,85,247,0.6);
+}
 
 .mobile-menu-btn {
   display: flex;
